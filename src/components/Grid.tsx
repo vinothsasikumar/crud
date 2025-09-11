@@ -6,6 +6,7 @@ import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody
 import { deleteUser, getUsers } from "../data/http.service";
 import { setUserData } from '../shared/slicers/UserSlice';
 import type { Users } from "../shared/models/User.model";
+import { useQuery } from "@tanstack/react-query";
 
 const Grid = () => {
 
@@ -13,9 +14,16 @@ const Grid = () => {
     const dispatch = useDispatch();
     const [usersData, setUsersData] = useState<Users[]>([]);
 
-    useEffect(() => {
-        getUsers().then(data => setUsersData(data));
-    }, [])
+    const { data } = useQuery({
+        queryKey: ['users'],
+        queryFn: getUsers,
+        retry: 3,
+        refetchInterval: 600000
+    });
+
+    // useEffect(() => {
+    //     getUsers().then(data => setUsersData(data));
+    // }, [])
 
     const onViewClick = (user: Users) => {
         dispatch(setUserData(user));
@@ -27,7 +35,8 @@ const Grid = () => {
     }
 
     const onUpdateClick = (user: Users) => {
-
+        dispatch(setUserData(user));
+        navigate('/update');
     }
 
     return (
@@ -47,17 +56,17 @@ const Grid = () => {
                         </TableHead>
                         <TableBody>
                             {
-                                usersData.map((data, index) => {
+                                data && data.map((userData: Users, index: number) => {
                                     return (
                                         <TableRow key={index}>
-                                            <TableCell align="center">{data.name}</TableCell>
-                                            <TableCell align="center">{data.email}</TableCell>
-                                            <TableCell align="center">{data.phone}</TableCell>
-                                            <TableCell align="center">{data.website}</TableCell>
+                                            <TableCell align="center">{userData.name}</TableCell>
+                                            <TableCell align="center">{userData.email}</TableCell>
+                                            <TableCell align="center">{userData.phone}</TableCell>
+                                            <TableCell align="center">{userData.website}</TableCell>
                                             <TableCell align="center" className="flex flex-row justify-center items-center gap-5">
-                                                <Button variant="outlined" onClick={() => onViewClick(data)}>View</Button>
-                                                <Button variant="outlined" onClick={() => onUpdateClick(data)}>Update</Button>
-                                                <Button variant="outlined" onClick={() => onDeleteClick(data)}>Delete</Button>
+                                                <Button variant="outlined" onClick={() => onViewClick(userData)}>View</Button>
+                                                <Button variant="outlined" onClick={() => onUpdateClick(userData)}>Update</Button>
+                                                <Button variant="outlined" onClick={() => onDeleteClick(userData)}>Delete</Button>
                                             </TableCell>
                                         </TableRow>)
                                 })
