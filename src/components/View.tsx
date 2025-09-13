@@ -3,7 +3,7 @@ import type { Users } from "../shared/models/User.model";
 
 const View = () => {
 
-    const userData: Users = useSelector((state: any) => state.User);    
+    const userData: Users = useSelector((state: any) => state.User);
 
     return (
         <>
