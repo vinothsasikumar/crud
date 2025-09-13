@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button } from "@mui/material";
@@ -12,7 +11,7 @@ const Grid = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [usersData, setUsersData] = useState<Users[]>([]);
+    // const [usersData, setUsersData] = useState<Users[]>([]);
 
     const { data } = useQuery({
         queryKey: ['users'],
