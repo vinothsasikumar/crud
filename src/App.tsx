@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import Grid from "./components/Grid";
 import View from "./components/View";
-import Create from "./components/Create";
+import CreateUpdate from "./components/CreateUpdate";
 
 function Home() {
   return (
@@ -24,7 +24,7 @@ function Home() {
           Go to View
         </Link>
         <Link
-          to="/create"
+          to="/createUpdate"
           className="px-6 py-3 bg-purple-500 rounded-xl shadow-md hover:bg-purple-600 transition"
         >
           Create User
@@ -63,6 +63,12 @@ function App() {
           >
             Create
           </Link>
+           <Link
+            className="hover:underline hover:scale-105 transition-transform duration-300 "
+            to="/Update"
+          >
+            Update
+          </Link>
         </nav>
 
      
@@ -70,7 +76,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/grid" element={<Grid />} />
           <Route path="/view" element={<View />} />
-          <Route path="/create" element={<Create />} />
+          <Route path="/create" element={<CreateUpdate />} />
+          <Route path="/Update" element={<CreateUpdate />} />
         </Routes>
       </BrowserRouter>
     </div>

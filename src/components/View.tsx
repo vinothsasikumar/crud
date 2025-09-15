@@ -8,7 +8,7 @@ const View = () => {
     return (
         <>
             <section className="flex flex-col justify-center items-center">
-                <div className="w-[50%] flex flex-col gap-5 border border-blue-400 p-5 m-5">
+                <div className="w-[50%] flex flex-col gap-5 border border-white-400 p-5 m-5 bg-white rounded-md shadow-md">
                     <span>Name: {userData.name}</span>
                     <span>Email: {userData.email}</span>
                     <span>Phone: {userData.phone}</span>

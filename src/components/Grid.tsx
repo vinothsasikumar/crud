@@ -25,15 +25,16 @@ const Grid = () => {
            await deleteUsers(user.id)
     }
      const onUpdateClick=(user:Users)=>{
-
+         dispatch(setUserData(user));
+          navigate('/Update');
     }
 
 
     return (
         <>
          <Button variant="outlined" onClick={()=>navigate('/create')}>Create user</Button>
-            <section className="flex justify-center items-center">
-                <TableContainer component={Paper} className="border border-blue-400 rounded-md p-5 m-5 w-[90%]">
+            <section className="flex justify-center items-center ">
+                <TableContainer component={Paper} className="border border-blue-400 rounded-md p-5 m-5  w-[90%]">
                     <Table>
                         <TableHead>
                             <TableRow>

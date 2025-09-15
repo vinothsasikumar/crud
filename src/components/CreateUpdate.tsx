@@ -2,19 +2,29 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableRow, T
 import { useForm } from "react-hook-form";
 
 import type { Users } from "../shared/models/User.model";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const Create = () => {
+const CreateUpdate = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<Users>();
+  const location = useLocation();
+const userData: Users = useSelector((state: any) => state.User);
+  useEffect(()=>{
+    if (location.pathname === '/Update'){
+        reset(userData);
+    }
+  })
 
-  const onSubmit = (data: Users) => {
+  function onSubmit(data: Users) {
     console.log("Form Data:", data);
     reset(); // reset after submit
-  };
+  }
 
   return (
     <section className="flex justify-center items-center">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TableContainer component={Paper} className="border border-blue-400 rounded-md p-5 m-5 w-[60%]">
+        <TableContainer component={Paper} className="border border-blue-400 rounded-md p-5 m-5 w-[90%]">
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableBody>
               <TableRow>
@@ -76,7 +86,8 @@ const Create = () => {
 
               <TableRow>
                 <TableCell colSpan={2} align="right">
-                  <Button type="submit" variant="outlined">Create User</Button>
+                  <Button type="reset" variant="outlined">reset</Button>
+                  <Button type="submit" variant="outlined">{location.pathname==='/Update'?'update':'create'}User</Button>
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -87,4 +98,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default CreateUpdate;
